@@ -7,7 +7,7 @@ model_names = {'base': 'roberta-base',
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_dir', default='/data/mohamed/data')
+    parser.add_argument('--data_dir', default='.')
     parser.add_argument('--data', default='snli_balanced')
     parser.add_argument('--aim_exp', default='entropy-curr')
     parser.add_argument('--ckpt')
@@ -44,8 +44,6 @@ def parse_args():
     parser.add_argument('--eval_only', action='store_true')
     parser.add_argument('--save_losses', action='store_true')
     parser.add_argument('--seed', default = '0')
-    parser.add_argument('--study_name', default='test_study.pkl')
-    parser.add_argument('--study_dir', default='studies')
     parser.add_argument('--noise', type=float, default=0.0)
     parser.add_argument('--data_fraction', type=float, default=1.0)
     parser.add_argument('--lng')

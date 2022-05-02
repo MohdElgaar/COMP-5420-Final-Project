@@ -76,9 +76,9 @@ def process(labels, gold_label, base=None):
             for i in probs:
                 ent -= i * log(i, base)
 
-    weight1 = weights_target[cat][label]
-    weight2 = weights_ent[cat]
-    weight = weight1 * weight2
+    # weight1 = weights_target[cat][label]
+    # weight2 = weights_ent[cat]
+    # weight = weight1 * weight2
 
     diff = 1 - sum([l == label for l in labels])/len(labels)
 
@@ -88,7 +88,8 @@ def process(labels, gold_label, base=None):
             gold_label=gold_label,
             entropy=ent,
             entropy_class=cat,
-            ins_weight=weight)
+            # ins_weight=weight
+            )
 
 cls_map = {
         "entailment": 0,
@@ -97,13 +98,11 @@ cls_map = {
         '-': 3}
 
 if __name__ == '__main__':
-    data = load_dataset('json', data_files={
-        name: f'data/snli_1.0/snli_1.0_{name}.jsonl'
-        for name in ['train', 'dev', 'test'] })
+    data = load_dataset('snli')
 
-    weights = np.load('balance_weight.npz')
-    weights_target = weights['target']
-    weights_ent = weights['ent']
+    # weights = np.load('balance_weight.npz')
+    # weights_target = weights['target']
+    # weights_ent = weights['ent']
 
     data = data.map(process,
         input_columns=['annotator_labels', 'gold_label'],
@@ -116,4 +115,4 @@ if __name__ == '__main__':
     train_ids = [idx for idx,x in enumerate(data['train']) if len(x['labels']) >= 4]
     data['train'] = data['train'].select(train_ids)
 
-    data.save_to_disk('data/snli_special')
+    data.save_to_disk('./snli_special')

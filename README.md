@@ -7,6 +7,10 @@
   - Apply a curriculum that learns from easy to hard
 - Compare with CL baselines Mentornet, SuperLoss, Difficulty Prediction (DP), No-CL (standard training).
 
+# Prepare data
+`python prepare_snli.py`
+`python prepare_chaso.py`
+
 # Training
 `python train.py --data [chaosnli, snli] --curr [ent, sl, dp, mentornet, none] --epochs 2 --grad_accumulation 8`
 
